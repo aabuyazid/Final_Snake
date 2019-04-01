@@ -67,26 +67,26 @@ module Snake_SM(
     input game_clk, // Should be 5Hz
     input PS2CLK,
     input PS2Data,
-    input newKey,
-    output [6:0] SnakePos0_X,
-    output [6:0] SnakePos0_Y,
-    output [6:0] SnakePos1_X,
-    output [6:0] SnakePos1_Y,
-    output [6:0] SnakePos2_X,
-    output [6:0] SnakePos2_Y,
-    output [6:0] SnakePos3_X,
-    output [6:0] SnakePos3_Y,
+    output [5:0] SnakePos0_X,
+    output [5:0] SnakePos0_Y,
+    output [5:0] SnakePos1_X,
+    output [5:0] SnakePos1_Y,
+    output [5:0] SnakePos2_X,
+    output [5:0] SnakePos2_Y,
+    output [5:0] SnakePos3_X,
+    output [5:0] SnakePos3_Y,
     output reg AllBlack
 );
 
 wire [7:0] Inc_KeyPress;
 wire [7:0] KeyPress;
+wire newKey;
 
-PS2 keyboard (PS2CLK,PS2Data,Inc_KeyPress);
+PS2 keyboard (PS2CLK,PS2Data,Inc_KeyPress, newKey);
 
 assign KeyPress = newKey ? Inc_KeyPress : 0;
 
-reg [6:0] SnakePos [7:0];
+reg [5:0] SnakePos [7:0];
 
 reg [4:0] curr_state;
 reg [4:0] next_state;
@@ -105,11 +105,6 @@ assign SnakePos2_X = SnakePos[4];
 assign SnakePos2_Y = SnakePos[5];
 assign SnakePos3_X = SnakePos[6];
 assign SnakePos3_Y = SnakePos[7];
-
-assign strobe = ((SnakePos0_X && SnakePos1_X) || (SnakePos0_X && SnakePos2_X) || (SnakePos0_X && SnakePos3_X) ||
-                (SnakePos1_X && SnakePos2_X) || (SnakePos1_X && SnakePos3_X) || (SnakePos2_X && SnakePos3_X)) && 
-                ((SnakePos0_Y && SnakePos1_Y) || (SnakePos0_Y && SnakePos2_Y) || (SnakePos0_Y && SnakePos3_Y) ||
-                (SnakePos1_Y && SnakePos2_Y) || (SnakePos1_Y && SnakePos3_Y) || (SnakePos2_Y && SnakePos3_Y));
 
 initial begin
     curr_state <= `WAIT;
