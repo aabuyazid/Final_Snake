@@ -2,10 +2,10 @@
 `define  sCol  12'h0F0;
 `define  bCol  12'hFFF;
 `define black  12'h000;
-module Snake_1(clk, Py1, Py2, Py3, Py4, Px1, Px2, Px3, Px4, hIndex,vIndex,color,AllBlack);
+module Snake_1(clk, Px1, Py1, Px2, Py2, Px3, Py3, Px4, Py4, hIndex,vIndex,color,AllBlack);
     input clk, AllBlack;
     input [5:0] hIndex, vIndex;
-    input [5:0] Py1, Py2, Py3, Py4, Px1, Px2, Px3, Px4;
+    input [5:0] Px1, Py1, Px2, Py2, Px3, Py3, Px4, Py4;
     output [11:0] color;
     wire clk25MHz;
     reg [11:0] colorReg;
