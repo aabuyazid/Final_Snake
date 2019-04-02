@@ -187,7 +187,7 @@ always@(posedge main_clk) begin
                     next_state <= `UP1;
             end
             next_head <= curr_tail; 
-            next_tail <= (curr_tail+1);
+            next_tail <= (curr_tail-1);
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head];
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1] - 1;
         end
@@ -202,7 +202,7 @@ always@(posedge main_clk) begin
                     next_state <= `UP2;
             end
             next_head <= curr_tail; 
-            next_tail <= (curr_tail+1);
+            next_tail <= (curr_tail-1);
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head];
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1] - 1;
         end
@@ -217,7 +217,7 @@ always@(posedge main_clk) begin
                     next_state <= `UP3;
             end
             next_head <= curr_tail; 
-            next_tail <= (curr_tail+1);
+            next_tail <= (curr_tail-1);
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head];
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1] - 1;
         end
@@ -246,7 +246,7 @@ always@(posedge main_clk) begin
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head];
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1] - 1;
             next_head <= curr_tail; 
-            next_tail <= (curr_tail+1);
+            next_tail <= (curr_tail-1);
         end
         `UPPAUSE: begin
             if(KeyPress == `ESC)
@@ -275,7 +275,7 @@ always@(posedge main_clk) begin
                     next_state <= `DOWN1;
             end
             next_head <= curr_tail; 
-            next_tail <= (curr_tail+1);
+            next_tail <= (curr_tail-1);
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head];
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1] + 1;
         end
@@ -290,7 +290,7 @@ always@(posedge main_clk) begin
                     next_state <= `DOWN2;
             end
             next_head <= curr_tail; 
-            next_tail <= (curr_tail+1);
+            next_tail <= (curr_tail-1);
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head];
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1] + 1;
         end
@@ -305,7 +305,7 @@ always@(posedge main_clk) begin
                     next_state <= `DOWN3;
             end
             next_head <= curr_tail; 
-            next_tail <= (curr_tail+1);
+            next_tail <= (curr_tail-1);
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head];
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1] + 1;
         end
@@ -332,7 +332,7 @@ always@(posedge main_clk) begin
                 end
             end
             next_head <= curr_tail; 
-            next_tail <= (curr_tail+1);
+            next_tail <= (curr_tail-1);
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head];
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1] + 1;
         end
@@ -363,7 +363,7 @@ always@(posedge main_clk) begin
                     next_state <= `RIGHT1;
             end
             next_head <= curr_tail;
-            next_tail <= (curr_tail+1);
+            next_tail <= (curr_tail-1);
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head] + 1; // x-coor
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1]; // y-coor
         end
@@ -378,7 +378,7 @@ always@(posedge main_clk) begin
                     next_state <= `RIGHT2;
             end
             next_head <= curr_tail;
-            next_tail <= (curr_tail+1);
+            next_tail <= (curr_tail-1);
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head] + 1; // x-coor
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1]; // y-coor
         end
@@ -393,7 +393,7 @@ always@(posedge main_clk) begin
                     next_state <= `RIGHT3;
             end
             next_head <= curr_tail;
-            next_tail <= (curr_tail+1);
+            next_tail <= (curr_tail-1);
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head] + 1; // x-coor
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1]; // y-coor
         end
@@ -420,7 +420,7 @@ always@(posedge main_clk) begin
                 end
             end
             next_head <= curr_tail;
-            next_tail <= (curr_tail+1);
+            next_tail <= (curr_tail-1);
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head] + 1; // x-coor
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1]; // y-coor
         end
@@ -451,7 +451,7 @@ always@(posedge main_clk) begin
                     next_state <= `LEFT1;
             end
             next_head <= curr_tail;
-            next_tail <= (curr_tail+1);
+            next_tail <= (curr_tail-1);
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head] - 1; // x-coor
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1]; // y-coor
         end
@@ -466,7 +466,7 @@ always@(posedge main_clk) begin
                     next_state <= `LEFT2;
             end
             next_head <= curr_tail;
-            next_tail <= (curr_tail+1);
+            next_tail <= (curr_tail-1);
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head] - 1; // x-coor
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1]; // y-coor
         end
@@ -481,7 +481,7 @@ always@(posedge main_clk) begin
                     next_state <= `LEFT3;
             end
             next_head <= curr_tail;
-            next_tail <= (curr_tail+1);
+            next_tail <= (curr_tail-1);
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head] - 1; // x-coor
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1]; // y-coor
         end
@@ -508,7 +508,7 @@ always@(posedge main_clk) begin
                 end
             end
             next_head <= curr_tail;
-            next_tail <= (curr_tail+1);
+            next_tail <= (curr_tail-1);
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head] - 1; // x-coor
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1]; // y-coor
         end
