@@ -108,8 +108,8 @@ assign SnakePos3_Y = SnakePos[7];
 
 initial begin
     curr_state <= `WAIT;
-    curr_head <= 3;
-    curr_tail <= 0;
+    curr_head <= 0;
+    curr_tail <= 3;
     AllBlack <= 0;
     next_state <= `WAIT;
 end
@@ -127,10 +127,14 @@ always@(posedge main_clk) begin
                 else
                     next_state <= `WAIT;
             end
-            for(index = 0; index < 4; index = index + 1) begin
-                SnakePos[index+index] <= index; // x-coor
-                SnakePos[index+index+1] <= 48; // y-coor
-            end
+            SnakePos[0] <= 0; // x-coor
+            SnakePos[1] <= 48; // y-coor
+            SnakePos[2] <= 1; // x-coor
+            SnakePos[3] <= 48; // y-coor
+            SnakePos[4] <= 2; // x-coor
+            SnakePos[5] <= 48; // y-coor
+            SnakePos[6] <= 3; // x-coor
+            SnakePos[7] <= 48; // y-coor
         end
         `INTIALIZE: begin
             if(KeyPress == `ESC) begin
@@ -138,12 +142,18 @@ always@(posedge main_clk) begin
             end
             else
                 next_state <= `RIGHT3;
-            for(index = 0; index < 4; index = index + 1) begin
-                SnakePos[index+index] <= index; // x-coor
-                SnakePos[index+index+1] <= 23; // y-coor
-            end
-            next_head <= 3;
-            next_tail <= 0;
+                
+            SnakePos[0] <= 0; // x-coor
+            SnakePos[1] <= 23; // y-coor
+            SnakePos[2] <= 1; // x-coor
+            SnakePos[3] <= 23; // y-coor
+            SnakePos[4] <= 2; // x-coor
+            SnakePos[5] <= 23; // y-coor
+            SnakePos[6] <= 3; // x-coor
+            SnakePos[7] <= 23; // y-coor
+
+            next_head <= 0;
+            next_tail <= 3;
             AllBlack <= 0;
         end
         `BLACK: begin
@@ -233,10 +243,10 @@ always@(posedge main_clk) begin
                     end
                 end
             end
-            next_head <= curr_tail; 
-            next_tail <= (curr_tail+1);
             SnakePos[curr_tail+curr_tail] <= SnakePos[curr_head+curr_head];
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1] - 1;
+            next_head <= curr_tail; 
+            next_tail <= (curr_tail+1);
         end
         `UPPAUSE: begin
             if(KeyPress == `ESC)
