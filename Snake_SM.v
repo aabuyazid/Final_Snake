@@ -82,9 +82,13 @@ wire [7:0] Inc_KeyPress;
 wire [7:0] KeyPress;
 wire newKey;
 
+wire gameOver;
+
 PS2 keyboard (PS2CLK,PS2Data,Inc_KeyPress, newKey);
 
 assign KeyPress = newKey ? Inc_KeyPress : 0;
+
+assign gameOver = (SnakePos[curr_head+curr_head] > 63) || (SnakePos[curr_head+curr_head+1] > 48);
 
 reg [5:0] SnakePos [7:0];
 
@@ -177,14 +181,18 @@ always@(posedge main_clk) begin
         // Snake-movement states
         // Up Direction
         `UP0: begin
-            if(KeyPress == `ESC) begin
-                next_state <= `BLACK;
-            end
+            if(gameOver)
+                next_state <= `GAMEOVER;
             else begin
-                if(KeyPress == `START)
-                    next_state <= `INTIALIZE;
-                else
-                    next_state <= `UP1;
+                if(KeyPress == `ESC) begin
+                    next_state <= `BLACK;
+                end
+                else begin
+                    if(KeyPress == `START)
+                        next_state <= `INTIALIZE;
+                    else
+                        next_state <= `UP1;
+                end
             end
             next_head <= curr_tail; 
             next_tail <= (curr_tail-1);
@@ -192,14 +200,18 @@ always@(posedge main_clk) begin
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1] - 1;
         end
         `UP1: begin
-            if(KeyPress == `ESC) begin
-                next_state <= `BLACK;
-            end
+            if(gameOver)
+                next_state <= `GAMEOVER;
             else begin
-                if(KeyPress == `START)
-                    next_state <= `INTIALIZE;
-                else
-                    next_state <= `UP2;
+                if(KeyPress == `ESC) begin
+                    next_state <= `BLACK;
+                end
+                else begin
+                    if(KeyPress == `START)
+                        next_state <= `INTIALIZE;
+                    else
+                        next_state <= `UP2;
+                end
             end
             next_head <= curr_tail; 
             next_tail <= (curr_tail-1);
@@ -207,14 +219,18 @@ always@(posedge main_clk) begin
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1] - 1;
         end
         `UP2: begin
-            if(KeyPress == `ESC) begin
-                next_state <= `BLACK;
-            end
+            if(gameOver)
+                next_state <= `GAMEOVER;
             else begin
-                if(KeyPress == `START)
-                    next_state <= `INTIALIZE;
-                else
-                    next_state <= `UP3;
+                if(KeyPress == `ESC) begin
+                    next_state <= `BLACK;
+                end
+                else begin
+                    if(KeyPress == `START)
+                        next_state <= `INTIALIZE;
+                    else
+                        next_state <= `UP3;
+                end
             end
             next_head <= curr_tail; 
             next_tail <= (curr_tail-1);
@@ -222,23 +238,27 @@ always@(posedge main_clk) begin
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1] - 1;
         end
         `UP3: begin
-            if(KeyPress == `ESC) begin
-                next_state <= `BLACK;
-            end
+            if(gameOver) 
+                next_state <= `GAMEOVER;
             else begin
-                if(KeyPress == `START)
-                    next_state <= `INTIALIZE;
+                if(KeyPress == `ESC) begin
+                    next_state <= `BLACK;
+                end
                 else begin
-                    if(KeyPress == `PAUSE)
-                        next_state <= `UPPAUSE;
+                    if(KeyPress == `START)
+                        next_state <= `INTIALIZE;
                     else begin
-                        if(KeyPress == `LEFT)
-                            next_state <= `LEFT0;
+                        if(KeyPress == `PAUSE)
+                            next_state <= `UPPAUSE;
                         else begin
-                            if(KeyPress == `RIGHT)
-                                next_state <= `RIGHT0;
-                            else 
-                                next_state <= `UP3;
+                            if(KeyPress == `LEFT)
+                                next_state <= `LEFT0;
+                            else begin
+                                if(KeyPress == `RIGHT)
+                                    next_state <= `RIGHT0;
+                                else 
+                                    next_state <= `UP3;
+                            end
                         end
                     end
                 end
@@ -265,14 +285,18 @@ always@(posedge main_clk) begin
                     
         // Down direction
         `DOWN0: begin
-            if(KeyPress == `ESC) begin
-                next_state <= `BLACK;
-            end
+            if(gameOver)
+                next_state <= `GAMEOVER;
             else begin
-                if(KeyPress == `START)
-                    next_state <= `INTIALIZE;
-                else
-                    next_state <= `DOWN1;
+                if(KeyPress == `ESC) begin
+                    next_state <= `BLACK;
+                end
+                else begin
+                    if(KeyPress == `START)
+                        next_state <= `INTIALIZE;
+                    else
+                        next_state <= `DOWN1;
+                end
             end
             next_head <= curr_tail; 
             next_tail <= (curr_tail-1);
@@ -280,14 +304,18 @@ always@(posedge main_clk) begin
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1] + 1;
         end
         `DOWN1: begin
-            if(KeyPress == `ESC) begin
-                next_state <= `BLACK;
-            end
+            if(gameOver)
+                next_state <= `GAMEOVER;
             else begin
-                if(KeyPress == `START)
-                    next_state <= `INTIALIZE;
-                else
-                    next_state <= `DOWN2;
+                if(KeyPress == `ESC) begin
+                    next_state <= `BLACK;
+                end
+                else begin
+                    if(KeyPress == `START)
+                        next_state <= `INTIALIZE;
+                    else
+                        next_state <= `DOWN2;
+                end
             end
             next_head <= curr_tail; 
             next_tail <= (curr_tail-1);
@@ -295,14 +323,18 @@ always@(posedge main_clk) begin
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1] + 1;
         end
         `DOWN2: begin
-            if(KeyPress == `ESC) begin
-                next_state <= `BLACK;
-            end
+            if(gameOver)
+                next_state <= `GAMEOVER;
             else begin
-                if(KeyPress == `START)
-                    next_state <= `INTIALIZE;
-                else
-                    next_state <= `DOWN3;
+                if(KeyPress == `ESC) begin
+                    next_state <= `BLACK;
+                end
+                else begin
+                    if(KeyPress == `START)
+                        next_state <= `INTIALIZE;
+                    else
+                        next_state <= `DOWN3;
+                end
             end
             next_head <= curr_tail; 
             next_tail <= (curr_tail-1);
@@ -310,23 +342,27 @@ always@(posedge main_clk) begin
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1] + 1;
         end
         `DOWN3: begin
-            if(KeyPress == `ESC) begin
-                next_state <= `BLACK;
-            end
+            if(gameOver) 
+                next_state <= `GAMEOVER;
             else begin
-                if(KeyPress == `START)
-                    next_state <= `INTIALIZE;
+                if(KeyPress == `ESC) begin
+                    next_state <= `BLACK;
+                end
                 else begin
-                    if(KeyPress == `PAUSE)
-                        next_state <= `DOWNPAUSE;
+                    if(KeyPress == `START)
+                        next_state <= `INTIALIZE;
                     else begin
-                        if(KeyPress == `LEFT)
-                            next_state <= `LEFT0;
+                        if(KeyPress == `PAUSE)
+                            next_state <= `UPPAUSE;
                         else begin
-                            if(KeyPress == `RIGHT)
-                                next_state <= `RIGHT0;
-                            else 
-                                next_state <= `DOWN3;
+                            if(KeyPress == `LEFT)
+                                next_state <= `LEFT0;
+                            else begin
+                                if(KeyPress == `RIGHT)
+                                    next_state <= `RIGHT0;
+                                else 
+                                    next_state <= `DOWN3;
+                            end
                         end
                     end
                 end
@@ -353,14 +389,18 @@ always@(posedge main_clk) begin
 
         // Right direction
         `RIGHT0: begin
-            if(KeyPress == `ESC) begin
-                next_state <= `BLACK;
-            end
+            if(gameOver)
+                next_state <= `GAMEOVER;
             else begin
-                if(KeyPress == `START)
-                    next_state <= `INTIALIZE;
-                else
-                    next_state <= `RIGHT1;
+                if(KeyPress == `ESC) begin
+                    next_state <= `BLACK;
+                end
+                else begin
+                    if(KeyPress == `START)
+                        next_state <= `INTIALIZE;
+                    else
+                        next_state <= `RIGHT1;
+                end
             end
             next_head <= curr_tail;
             next_tail <= (curr_tail-1);
@@ -368,14 +408,18 @@ always@(posedge main_clk) begin
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1]; // y-coor
         end
         `RIGHT1: begin
-            if(KeyPress == `ESC) begin
-                next_state <= `BLACK;
-            end
+            if(gameOver)
+                next_state <= `GAMEOVER;
             else begin
-                if(KeyPress == `START)
-                    next_state <= `INTIALIZE;
-                else
-                    next_state <= `RIGHT2;
+                if(KeyPress == `ESC) begin
+                    next_state <= `BLACK;
+                end
+                else begin
+                    if(KeyPress == `START)
+                        next_state <= `INTIALIZE;
+                    else
+                        next_state <= `RIGHT2;
+                end
             end
             next_head <= curr_tail;
             next_tail <= (curr_tail-1);
@@ -383,14 +427,18 @@ always@(posedge main_clk) begin
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1]; // y-coor
         end
         `RIGHT2: begin
-            if(KeyPress == `ESC) begin
-                next_state <= `BLACK;
-            end
+            if(gameOver)
+                next_state <= `GAMEOVER;
             else begin
-                if(KeyPress == `START)
-                    next_state <= `INTIALIZE;
-                else
-                    next_state <= `RIGHT3;
+                if(KeyPress == `ESC) begin
+                    next_state <= `BLACK;
+                end
+                else begin
+                    if(KeyPress == `START)
+                        next_state <= `INTIALIZE;
+                    else
+                        next_state <= `RIGHT3;
+                end
             end
             next_head <= curr_tail;
             next_tail <= (curr_tail-1);
@@ -398,23 +446,27 @@ always@(posedge main_clk) begin
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1]; // y-coor
         end
         `RIGHT3: begin
-            if(KeyPress == `ESC) begin
-                next_state <= `BLACK;
-            end
+            if(gameOver)
+                next_state <= `GAMEOVER
             else begin
-                if(KeyPress == `START)
-                    next_state <= `INTIALIZE;
+                if(KeyPress == `ESC) begin
+                    next_state <= `BLACK;
+                end
                 else begin
-                    if(KeyPress == `PAUSE)
-                        next_state <= `RIGHTPAUSE;
+                    if(KeyPress == `START)
+                        next_state <= `INTIALIZE;
                     else begin
-                        if(KeyPress == `UP)
-                            next_state <= `UP0;
+                        if(KeyPress == `PAUSE)
+                            next_state <= `RIGHTPAUSE;
                         else begin
-                            if(KeyPress == `DOWN)
-                                next_state <= `DOWN0;
-                            else 
-                                next_state <= `RIGHT3;
+                            if(KeyPress == `UP)
+                                next_state <= `UP0;
+                            else begin
+                                if(KeyPress == `DOWN)
+                                    next_state <= `DOWN0;
+                                else 
+                                    next_state <= `RIGHT3;
+                            end
                         end
                     end
                 end
@@ -441,14 +493,18 @@ always@(posedge main_clk) begin
 
         // Left Direction
         `LEFT0: begin
-            if(KeyPress == `ESC) begin
-                next_state <= `BLACK;
-            end
+            if(gameOver)
+                next_state <= `GAMEOVER;
             else begin
-                if(KeyPress == `START)
-                    next_state <= `INTIALIZE;
-                else
-                    next_state <= `LEFT1;
+                if(KeyPress == `ESC) begin
+                    next_state <= `BLACK;
+                end
+                else begin
+                    if(KeyPress == `START)
+                        next_state <= `INTIALIZE;
+                    else
+                        next_state <= `LEFT1;
+                end
             end
             next_head <= curr_tail;
             next_tail <= (curr_tail-1);
@@ -456,14 +512,18 @@ always@(posedge main_clk) begin
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1]; // y-coor
         end
         `LEFT1: begin
-            if(KeyPress == `ESC) begin
-                next_state <= `BLACK;
-            end
+            if(gameOver)
+                next_state <= `GAMEOVER;
             else begin
-                if(KeyPress == `START)
-                    next_state <= `INTIALIZE;
-                else
-                    next_state <= `LEFT2;
+                if(KeyPress == `ESC) begin
+                    next_state <= `BLACK;
+                end
+                else begin
+                    if(KeyPress == `START)
+                        next_state <= `INTIALIZE;
+                    else
+                        next_state <= `LEFT2;
+                end
             end
             next_head <= curr_tail;
             next_tail <= (curr_tail-1);
@@ -471,14 +531,18 @@ always@(posedge main_clk) begin
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1]; // y-coor
         end
         `LEFT2: begin
-            if(KeyPress == `ESC) begin
-                next_state <= `BLACK;
-            end
+            if(gameOver)
+                next_state <= `GAMEOVER;
             else begin
-                if(KeyPress == `START)
-                    next_state <= `INTIALIZE;
-                else
-                    next_state <= `LEFT3;
+                if(KeyPress == `ESC) begin
+                    next_state <= `BLACK;
+                end
+                else begin
+                    if(KeyPress == `START)
+                        next_state <= `INTIALIZE;
+                    else
+                        next_state <= `LEFT3;
+                end
             end
             next_head <= curr_tail;
             next_tail <= (curr_tail-1);
@@ -486,23 +550,27 @@ always@(posedge main_clk) begin
             SnakePos[curr_tail+curr_tail+1] <= SnakePos[curr_head+curr_head+1]; // y-coor
         end
         `LEFT3: begin
-            if(KeyPress == `ESC) begin
-                next_state <= `BLACK;
-            end
+            if(gameOver)
+                next_state <= `GAMEOVER
             else begin
-                if(KeyPress == `START)
-                    next_state <= `INTIALIZE;
+                if(KeyPress == `ESC) begin
+                    next_state <= `BLACK;
+                end
                 else begin
-                    if(KeyPress == `PAUSE) 
-                        next_state <= `LEFTPAUSE;
+                    if(KeyPress == `START)
+                        next_state <= `INTIALIZE;
                     else begin
-                        if(KeyPress == `UP)
-                            next_state <= `UP0;
+                        if(KeyPress == `PAUSE)
+                            next_state <= `RIGHTPAUSE;
                         else begin
-                            if(KeyPress == `DOWN)
-                                next_state <= `DOWN0;
-                            else 
-                                next_state <= `LEFT3;
+                            if(KeyPress == `UP)
+                                next_state <= `UP0;
+                            else begin
+                                if(KeyPress == `DOWN)
+                                    next_state <= `DOWN0;
+                                else 
+                                    next_state <= `LEFT3;
+                            end
                         end
                     end
                 end
